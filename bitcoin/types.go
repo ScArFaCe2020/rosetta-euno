@@ -24,7 +24,7 @@ import (
 
 const (
 	// Blockchain is Bitcoin.
-	Blockchain string = "Bitcoin"
+	Blockchain string = "EUNO"
 
 	// MainnetNetwork is the value of the network
 	// in MainnetNetworkIdentifier.
@@ -32,7 +32,7 @@ const (
 
 	// TestnetNetwork is the value of the network
 	// in TestnetNetworkIdentifier.
-	TestnetNetwork string = "Testnet3"
+	TestnetNetwork string = "Testnet"
 
 	// Decimals is the decimals value
 	// used in Currency.
@@ -96,7 +96,7 @@ var (
 
 	// MainnetCurrency is the *types.Currency for mainnet.
 	MainnetCurrency = &types.Currency{
-		Symbol:   "BTC",
+		Symbol:   "EUNO",
 		Decimals: Decimals,
 	}
 
@@ -110,7 +110,7 @@ var (
 
 	// TestnetCurrency is the *types.Currency for testnet.
 	TestnetCurrency = &types.Currency{
-		Symbol:   "tBTC",
+		Symbol:   "tEUNO",
 		Decimals: Decimals,
 	}
 

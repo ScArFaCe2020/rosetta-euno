@@ -133,7 +133,7 @@ func main() {
 		logger.Fatalw("unable to load configuration", "error", err)
 	}
 
-	logger.Infow("loaded configuration", "configuration", types.PrintStruct(cfg))
+	// logger.Infow("loaded configuration", "configuration", types.PrintStruct(cfg))
 
 	g, ctx := errgroup.WithContext(ctx)
 

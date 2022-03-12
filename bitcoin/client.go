@@ -44,7 +44,7 @@ const (
 	requestID = 1
 
 	// jSONRPCVersion is the JSON-RPC version we use for making requests
-	jSONRPCVersion = "2.0"
+	jSONRPCVersion = "1.0"
 
 	// blockVerbosity represents the verbose level used when fetching blocks
 	// * 0 returns the hex representation
