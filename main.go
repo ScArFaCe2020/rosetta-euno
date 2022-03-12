@@ -86,9 +86,11 @@ func startOnlineDependencies(
 		cfg.Currency,
 	)
 
-	g.Go(func() error {
-		return bitcoin.StartBitcoind(ctx, cfg.ConfigPath, g)
-	})
+	//TODO: need to enable this again.. for testing disabled as local wallet is running....
+
+	// g.Go(func() error {
+	// 	return bitcoin.StartBitcoind(ctx, cfg.ConfigPath, g)
+	// })
 
 	i, err := indexer.Initialize(
 		ctx,
@@ -104,9 +106,9 @@ func startOnlineDependencies(
 		return i.Sync(ctx)
 	})
 
-	g.Go(func() error {
-		return i.Prune(ctx)
-	})
+	// g.Go(func() error {
+	// 	return i.Prune(ctx)
+	// })
 
 	return client, i, nil
 }
@@ -132,8 +134,6 @@ func main() {
 	if err != nil {
 		logger.Fatalw("unable to load configuration", "error", err)
 	}
-
-	// logger.Infow("loaded configuration", "configuration", types.PrintStruct(cfg))
 
 	g, ctx := errgroup.WithContext(ctx)
 
