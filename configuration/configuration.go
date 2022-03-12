@@ -50,11 +50,11 @@ const (
 
 	// mainnetConfigPath is the path of the Bitcoin
 	// configuration file for mainnet.
-	mainnetConfigPath = "/app/bitcoin-mainnet.conf"
+	mainnetConfigPath = "/app/euno-mainnet.conf"
 
 	// testnetConfigPath is the path of the Bitcoin
 	// configuration file for testnet.
-	testnetConfigPath = "/app/bitcoin-testnet.conf"
+	testnetConfigPath = "/app/euno-testnet.conf"
 
 	mainnetRPCPort = 46461
 	testnetRPCPort = 46463
