@@ -1,4 +1,4 @@
-module github.com/coinbase/rosetta-bitcoin
+module github.com/ScArFaCe2020/rosetta-bitcoin
 
 go 1.16
 

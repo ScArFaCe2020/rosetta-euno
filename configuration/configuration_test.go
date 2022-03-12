@@ -20,9 +20,8 @@ import (
 	"path"
 	"testing"
 
-	"github.com/coinbase/rosetta-bitcoin/bitcoin"
+	"github.com/ScArFaCe2020/rosetta-bitcoin/bitcoin"
 
-	"github.com/coinbase/rosetta-sdk-go/storage/encoder"
 	"github.com/coinbase/rosetta-sdk-go/types"
 	"github.com/coinbase/rosetta-sdk-go/utils"
 	"github.com/stretchr/testify/assert"
@@ -70,12 +69,6 @@ func TestLoadConfiguration(t *testing.T) {
 					Depth:     pruneDepth,
 					MinHeight: minPruneHeight,
 				},
-				Compressors: []*encoder.CompressorEntry{
-					{
-						Namespace:      transactionNamespace,
-						DictionaryPath: mainnetTransactionDictionary,
-					},
-				},
 			},
 		},
 		"all set (testnet)": {
@@ -98,12 +91,6 @@ func TestLoadConfiguration(t *testing.T) {
 					Frequency: pruneFrequency,
 					Depth:     pruneDepth,
 					MinHeight: minPruneHeight,
-				},
-				Compressors: []*encoder.CompressorEntry{
-					{
-						Namespace:      transactionNamespace,
-						DictionaryPath: testnetTransactionDictionary,
-					},
 				},
 			},
 		},

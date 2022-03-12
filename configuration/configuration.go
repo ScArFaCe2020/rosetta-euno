@@ -22,7 +22,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/coinbase/rosetta-bitcoin/bitcoin"
+	"github.com/ScArFaCe2020/rosetta-bitcoin/bitcoin"
 
 	"github.com/btcsuite/btcd/chaincfg"
 	"github.com/coinbase/rosetta-sdk-go/storage/encoder"
@@ -56,12 +56,7 @@ const (
 	// configuration file for testnet.
 	testnetConfigPath = "/app/bitcoin-testnet.conf"
 
-	// Zstandard compression dictionaries
-	transactionNamespace         = "transaction"
-	testnetTransactionDictionary = "/app/testnet-transaction.zstd"
-	mainnetTransactionDictionary = "/app/mainnet-transaction.zstd"
-
-	mainnetRPCPort = 8332
+	mainnetRPCPort = 46461
 	testnetRPCPort = 18332
 
 	// min prune depth is 288:
@@ -167,12 +162,6 @@ func LoadConfiguration(baseDirectory string) (*Configuration, error) {
 		config.Currency = bitcoin.MainnetCurrency
 		config.ConfigPath = mainnetConfigPath
 		config.RPCPort = mainnetRPCPort
-		config.Compressors = []*encoder.CompressorEntry{
-			{
-				Namespace:      transactionNamespace,
-				DictionaryPath: mainnetTransactionDictionary,
-			},
-		}
 	case Testnet:
 		config.Network = &types.NetworkIdentifier{
 			Blockchain: bitcoin.Blockchain,
@@ -183,12 +172,6 @@ func LoadConfiguration(baseDirectory string) (*Configuration, error) {
 		config.Currency = bitcoin.TestnetCurrency
 		config.ConfigPath = testnetConfigPath
 		config.RPCPort = testnetRPCPort
-		config.Compressors = []*encoder.CompressorEntry{
-			{
-				Namespace:      transactionNamespace,
-				DictionaryPath: testnetTransactionDictionary,
-			},
-		}
 	case "":
 		return nil, errors.New("NETWORK must be populated")
 	default:

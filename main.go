@@ -24,11 +24,11 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/coinbase/rosetta-bitcoin/bitcoin"
-	"github.com/coinbase/rosetta-bitcoin/configuration"
-	"github.com/coinbase/rosetta-bitcoin/indexer"
-	"github.com/coinbase/rosetta-bitcoin/services"
-	"github.com/coinbase/rosetta-bitcoin/utils"
+	"github.com/ScArFaCe2020/rosetta-bitcoin/bitcoin"
+	"github.com/ScArFaCe2020/rosetta-bitcoin/configuration"
+	"github.com/ScArFaCe2020/rosetta-bitcoin/indexer"
+	"github.com/ScArFaCe2020/rosetta-bitcoin/services"
+	"github.com/ScArFaCe2020/rosetta-bitcoin/utils"
 
 	"github.com/coinbase/rosetta-sdk-go/asserter"
 	"github.com/coinbase/rosetta-sdk-go/server"
