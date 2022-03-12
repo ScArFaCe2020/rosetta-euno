@@ -204,7 +204,6 @@ func Initialize(
 	localStore, err := database.NewBadgerDatabase(
 		ctx,
 		config.IndexerPath,
-		nil,
 		database.WithCustomSettings(defaultBadgerOptions(
 			config.IndexerPath,
 		)),
