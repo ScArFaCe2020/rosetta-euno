@@ -622,12 +622,6 @@ func (b *Client) parseOutputTransactionOperation(
 		CoinAction: types.CoinCreated,
 	}
 
-	// If we are unable to parse the output account (i.e. bitcoind
-	// returns a blank/nonstandard ScriptPubKey), we create an address as the
-	// concatenation of the tx hash and index.
-	//
-	// Example: 4852fe372ff7534c16713b3146bbc1e86379c70bea4d5c02fb1fa0112980a081:1
-	// on testnet
 	account := b.parseOutputAccount(output.ScriptPubKey)
 	if len(account.Address) == 0 {
 		account.Address = fmt.Sprintf("%s:%d", txHash, networkIndex)
