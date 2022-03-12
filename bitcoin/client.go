@@ -43,6 +43,12 @@ const (
 
 	// jSONRPCVersion is the JSON-RPC version we use for making requests
 	jSONRPCVersion = "1.0"
+
+	// blockVerbosity represents the verbose level used when fetching blocks
+	// * 0 returns the hex representation
+	// * 1 returns the JSON representation
+	// * 2 returns the JSON representation with included Transaction data
+	// blockVerbosity = 2
 )
 
 type requestMethod string
@@ -71,6 +77,8 @@ const (
 
 	// https://developer.bitcoin.org/reference/rpc/getrawmempool.html
 	requestMethodRawMempool requestMethod = "getrawmempool"
+
+	requestMethodGetRawTransaction requestMethod = "getrawtransaction"
 
 	// blockNotFoundErrCode is the RPC error code when a block cannot be found
 	blockNotFoundErrCode = -5
@@ -273,6 +281,25 @@ func (b *Client) SendRawTransaction(
 	return response.Result, nil
 }
 
+// SendRawTransaction submits a serialized transaction
+// to bitcoind.
+func (b *Client) GetRawTransaction(
+	ctx context.Context,
+	serializedTx string,
+) (*Transaction, error) {
+	// Parameters:
+	//   1. hextring
+	//   2. maxfeerate (0 means accept any fee)
+	params := []interface{}{serializedTx, 1}
+
+	response := &getRawTransactionResponse{}
+	if err := b.post(ctx, requestMethodGetRawTransaction, params, response); err != nil {
+		return nil, fmt.Errorf("%w: error Getting raw transaction", err)
+	}
+
+	return response.Result, nil
+}
+
 // SuggestedFeeRate estimates the approximate fee per vKB needed
 // to get a transaction in a block within conf_target.
 func (b *Client) SuggestedFeeRate(
@@ -352,11 +379,21 @@ func (b *Client) getBlock(
 
 	// Parameters:
 	//   1. Block hash (string, required)
+	//   2. Verbosity (integer, optional, default=1)
+	// https://bitcoin.org/en/developer-reference#getblock
 	params := []interface{}{hash}
 
 	response := &blockResponse{}
 	if err := b.post(ctx, requestMethodGetBlock, params, response); err != nil {
 		return nil, fmt.Errorf("%w: error fetching block by hash %s", err, hash)
+	}
+
+	for i := range response.Result.Tx {
+		r, err := b.GetRawTransaction(ctx, response.Result.Tx[i])
+		if err != nil {
+			return nil, fmt.Errorf("%w: error fetching block by hash %s", err, hash)
+		}
+		response.Result.Txs = append(response.Result.Txs, r)
 	}
 
 	return response.Result, nil

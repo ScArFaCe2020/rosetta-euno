@@ -191,7 +191,8 @@ type Block struct {
 	Bits              string  `json:"bits"`
 	Difficulty        float64 `json:"difficulty"`
 
-	Txs []*Transaction `json:"tx"`
+	Tx  []string       `json:"tx"`
+	Txs []*Transaction `json:"txs"`
 }
 
 // Metadata returns the metadata for a block.
@@ -455,6 +456,24 @@ func (s sendRawTransactionResponse) Err() error {
 	)
 }
 
+type getRawTransactionResponse struct {
+	Result *Transaction   `json:"result"`
+	Error  *responseError `json:"error"`
+}
+
+func (s getRawTransactionResponse) Err() error {
+	if s.Error == nil {
+		return nil
+	}
+
+	return fmt.Errorf(
+		"%w: error JSON RPC response, code: %d, message: %s",
+		ErrJSONRPCError,
+		s.Error.Code,
+		s.Error.Message,
+	)
+}
+
 type suggestedFeeRate struct {
 	FeeRate float64 `json:"feerate"`
 }
@@ -510,3 +529,4 @@ func TransactionHash(identifier string) string {
 	vals := strings.Split(identifier, ":")
 	return vals[0]
 }
+
