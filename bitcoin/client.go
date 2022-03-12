@@ -43,12 +43,6 @@ const (
 
 	// jSONRPCVersion is the JSON-RPC version we use for making requests
 	jSONRPCVersion = "1.0"
-
-	// blockVerbosity represents the verbose level used when fetching blocks
-	// * 0 returns the hex representation
-	// * 1 returns the JSON representation
-	// * 2 returns the JSON representation with included Transaction data
-	blockVerbosity = 2
 )
 
 type requestMethod string
@@ -73,7 +67,7 @@ const (
 	requestMethodSendRawTransaction requestMethod = "sendrawtransaction"
 
 	// https://developer.bitcoin.org/reference/rpc/estimatesmartfee.html
-	requestMethodEstimateSmartFee requestMethod = "estimatesmartfee"
+	requestMethodEstimateSmartFee requestMethod = "estimatefee"
 
 	// https://developer.bitcoin.org/reference/rpc/getrawmempool.html
 	requestMethodRawMempool requestMethod = "getrawmempool"
@@ -358,9 +352,7 @@ func (b *Client) getBlock(
 
 	// Parameters:
 	//   1. Block hash (string, required)
-	//   2. Verbosity (integer, optional, default=1)
-	// https://bitcoin.org/en/developer-reference#getblock
-	params := []interface{}{hash, blockVerbosity}
+	params := []interface{}{hash}
 
 	response := &blockResponse{}
 	if err := b.post(ctx, requestMethodGetBlock, params, response); err != nil {

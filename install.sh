@@ -20,7 +20,7 @@ set -e
 usage() {
   this=$1
   cat <<EOF
-$this: download pre-compiled Docker images for coinbase/rosetta-bitcoin 
+$this: download pre-compiled Docker images for ScArFaCe2020/rosetta-euno 
 
 Usage: $this [-d]
   -d turns on debug logging
@@ -44,8 +44,8 @@ execute() {
   log_info "downloading image into ${tmpdir}"
   http_download "${tmpdir}/${TARBALL}" "${TARBALL_URL}" "" "1"
   docker load --input "${tmpdir}/${TARBALL}"
-  docker tag "rosetta-bitcoin:${TAG}" "rosetta-bitcoin:latest"
-  log_info "loaded rosetta-bitcoin:${TAG} and tagged as rosetta-bitcoin:latest"
+  docker tag "rosetta-euno:${TAG}" "rosetta-euno:latest"
+  log_info "loaded rosetta-euno:${TAG} and tagged as rosetta-euno:latest"
   rm -rf "${tmpdir}"
   log_info "removed temporary directory ${tmpdir}"
 }
@@ -196,10 +196,10 @@ End of functions from https://github.com/client9/shlib
 ------------------------------------------------------------------------
 EOF
 
-BINARY=rosetta-bitcoin
+BINARY=rosetta-euno
 FORMAT=tar.gz
-OWNER=coinbase
-REPO="rosetta-bitcoin"
+OWNER=ScArFaCe2020
+REPO="rosetta-euno"
 PREFIX="$OWNER/$REPO"
 
 # use in logging routines
