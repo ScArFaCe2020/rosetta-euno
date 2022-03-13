@@ -178,9 +178,11 @@ var EunoMainnetParams = chaincfg.Params{
 	GenesisBlock: &MainnetGenesisBlock,
 	GenesisHash:  &MainnetGenesisHash,
 
+	Bech32HRPSegwit: "E",
+
 	PubKeyHashAddrID:        0x21,
-	ScriptHashAddrID:        17,
-	PrivateKeyID:            9,
+	ScriptHashAddrID:        0x11,
+	PrivateKeyID:            0x9,
 	WitnessPubKeyHashAddrID: 0x00,
 	WitnessScriptHashAddrID: 0x00,
 
@@ -200,9 +202,11 @@ var EunoTestnetParams = chaincfg.Params{
 	GenesisBlock: &TestnetGenesisBlock,
 	GenesisHash:  &TestnetGenesisHash,
 
-	PubKeyHashAddrID:        139,
-	ScriptHashAddrID:        19,
-	PrivateKeyID:            239,
+	Bech32HRPSegwit: "y",
+
+	PubKeyHashAddrID:        0x8B,
+	ScriptHashAddrID:        0x13,
+	PrivateKeyID:            0xEF,
 	WitnessPubKeyHashAddrID: 0x00, // unimplement
 	WitnessScriptHashAddrID: 0x00, // unimplement
 
@@ -218,6 +222,8 @@ var EunoRegressionNetParams = chaincfg.Params{
 
 	Net:         0xac7ecfa1,
 	DefaultPort: "46466",
+
+	Bech32HRPSegwit: "rt",
 
 	GenesisBlock: &RegTestnetGenesisBlock,
 	GenesisHash:  &RegTestnetGenesisHash,
