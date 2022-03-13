@@ -27,12 +27,12 @@ build:
 	docker build -t rosetta-euno:latest https://github.com/ScArFaCe2020/rosetta-euno.git
 
 build-local:
-	docker build -t rosetta-bitcoin:latest .
+	docker build -t rosetta-euno:latest .
 
 build-release:
 	# make sure to always set version with vX.X.X
 	docker build -t rosetta-euno:$(version) .;
-	docker save rosetta-euno:$(version) | gzip > rosetta-bitcoin-$(version).tar.gz;
+	docker save rosetta-euno:$(version) | gzip > rosetta-euno-$(version).tar.gz;
 
 run-mainnet-online:
 	docker run -d --rm --ulimit "nofile=${NOFILE}:${NOFILE}" -v "${PWD}/euno-data:/data" -e "MODE=ONLINE" -e "NETWORK=MAINNET" -e "PORT=8080" -p 8080:8080 -p 46462:46462 rosetta-euno:latest
