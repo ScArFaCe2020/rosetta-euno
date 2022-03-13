@@ -90,7 +90,7 @@ const (
 func CreateMainNetParams() *chaincfg.Params {
 	chaincfg.MainNetParams.PubKeyHashAddrID = 0x21
 	chaincfg.MainNetParams.ScriptHashAddrID = 0x11
-	chaincfg.MainNetParams.Bech32HRPSegwit = "euno"
+	chaincfg.MainNetParams.Net = 0xe9fdc490
 	return &chaincfg.MainNetParams
 }
 
@@ -98,7 +98,7 @@ func CreateMainNetParams() *chaincfg.Params {
 func CreateTestNet3Params() *chaincfg.Params {
 	chaincfg.TestNet3Params.PubKeyHashAddrID = 0x8b
 	chaincfg.TestNet3Params.ScriptHashAddrID = 0x13
-	chaincfg.TestNet3Params.Bech32HRPSegwit = "teuno"
+	chaincfg.MainNetParams.Net = 0xba657645
 	return &chaincfg.TestNet3Params
 }
 
