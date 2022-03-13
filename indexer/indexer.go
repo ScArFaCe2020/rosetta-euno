@@ -262,27 +262,27 @@ func Initialize(
 
 // waitForNode returns once bitcoind is ready to serve
 // block queries.
-// func (i *Indexer) waitForNode(ctx context.Context) error {
-// 	logger := utils.ExtractLogger(ctx, "indexer")
-// 	for {
-// 		_, err := i.client.NetworkStatus(ctx)
-// 		if err == nil {
-// 			return nil
-// 		}
+func (i *Indexer) waitForNode(ctx context.Context) error {
+	logger := utils.ExtractLogger(ctx, "indexer")
+	for {
+		_, err := i.client.NetworkStatus(ctx)
+		if err == nil {
+			return nil
+		}
 
-// 		logger.Infow("waiting for bitcoind...")
-// 		if err := sdkUtils.ContextSleep(ctx, nodeWaitSleep); err != nil {
-// 			return err
-// 		}
-// 	}
-// }
+		logger.Infow("waiting for bitcoind...")
+		if err := sdkUtils.ContextSleep(ctx, nodeWaitSleep); err != nil {
+			return err
+		}
+	}
+}
 
 // Sync attempts to index Bitcoin blocks using
 // the bitcoin.Client until stopped.
 func (i *Indexer) Sync(ctx context.Context) error {
-	// if err := i.waitForNode(ctx); err != nil {
-	// 	return fmt.Errorf("%w: failed to wait for node", err)
-	// }
+	if err := i.waitForNode(ctx); err != nil {
+		return fmt.Errorf("%w: failed to wait for node", err)
+	}
 
 	i.blockStorage.Initialize(i.workers)
 
