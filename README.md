@@ -22,10 +22,6 @@ information [here](https://rosetta-api.org).
 * UTXO cache for all accounts (accessible using the Rosetta `/account/balance` API)
 * Stateless, offline, curve-based transaction construction from any SegWit-Bech32 Address
 
-## System Requirements
-`rosetta-euno` has been tested on an [AWS c5.2xlarge instance](https://aws.amazon.com/ec2/instance-types/c5).
-This instance type has 8 vCPU and 16 GB of RAM.
-
 ### Network Settings
 To increase the load `rosetta-euno` can handle, it is recommended to tune your OS
 settings to allow for more connections. On a linux-based OS, you can run the following commands ([source](http://www.tweaked.io/guide/kernel)):
@@ -151,3 +147,4 @@ Interested in helping fix issues in this repository? You can find to-dos in the 
 This project is available open source under the terms of the [Apache 2.0 License](https://opensource.org/licenses/Apache-2.0).
 
 © 2021 Coinbase
+© 2022 EUNO
