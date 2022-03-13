@@ -77,7 +77,9 @@ RUN apt-get update && \
 RUN mkdir -p /app \
   && chown -R nobody:nogroup /app \
   && mkdir -p /data \
-  && chown -R nobody:nogroup /data
+  && chown -R nobody:nogroup /data \
+  && mkdir -p /data/eunod \
+  && chown -R nobody:nogroup /data/eunod
 
 WORKDIR /app
 

@@ -58,7 +58,7 @@ const (
 	testnetConfigPath = "/app/euno-testnet.conf"
 
 	mainnetRPCPort = 46461
-	testnetRPCPort = 46463
+	testnetRPCPort = 46465
 
 	// min prune depth is 288:
 	// https://github.com/bitcoin/bitcoin/blob/ad2952d17a2af419a04256b10b53c7377f826a27/src/validation.h#L84
