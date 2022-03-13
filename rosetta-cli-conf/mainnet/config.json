@@ -11,6 +11,7 @@
   "tip_delay": 1800,
   "compression_disabled": true,
   "memory_limit_disabled": false,
+  "max_reorg_depth": 50,
   "data": {
     "initial_balance_fetch_disabled": true,
     "end_conditions": {
