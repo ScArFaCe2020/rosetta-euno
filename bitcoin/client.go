@@ -495,11 +495,7 @@ func (b *Client) getHashFromIndex(
 	return response.Result, nil
 }
 
-// skipTransactionOperations is used to skip operations on transactions that
-// contain duplicate UTXOs (which are no longer possible after BIP-30). This
-// function mirrors the behavior of a similar commit in bitcoin-core.
-//
-// Source: https://github.com/bitcoin/bitcoin/commit/ab91bf39b7c11e9c86bb2043c24f0f377f1cf514
+//Genesis Block, we can't see the Genesis Transaction from block 0 it need to be from block 1
 func skipTransactionOperations(blockNumber int64, blockHash string, transactionHash string) bool {
 	if blockNumber == 0 && blockHash == "0000009ea234b1ab29f0172e4d85884a45c0c638192c9c0f781bda67908d56dd" &&
 		transactionHash == "ede7d659d3674536765c924b8834c93d848e7ae69a3c3c68c55b3dec3887e036" {
