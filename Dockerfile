@@ -26,13 +26,12 @@ RUN apt-get update && apt-get install -y make gcc g++ autoconf autotools-dev bsd
 
 # VERSION: Bitcoin Core 0.20.1
 RUN wget https://github.com/Euno/eunowallet/releases/download/v2.0.2/euno-2.0.2-x86_64-linux-gnu.tar.gz \
-  && tar zxvf euno-2.0.2-x86_64-linux-gnu.tar.gz \
-  && git checkout 7ff64311bee570874c4f0dfa18f518552188df08
+  && tar zxvf euno-2.0.2-x86_64-linux-gnu.tar.gz
 
-RUN cd bitcoin \
-  && ./autogen.sh \
-  && ./configure --disable-tests --without-miniupnpc --without-gui --with-incompatible-bdb --disable-hardening --disable-zmq --disable-bench --disable-wallet \
-  && make
+# RUN cd bitcoin \
+#   && ./autogen.sh \
+#   && ./configure --disable-tests --without-miniupnpc --without-gui --with-incompatible-bdb --disable-hardening --disable-zmq --disable-bench --disable-wallet \
+#   && make
 
 RUN mv euno-2.0.2/bin/eunod /app/eunod \
   && rm -rf euno-2.0.2*
