@@ -23,7 +23,7 @@ import (
 	"os/exec"
 	"strings"
 
-	"github.com/ScArFaCe2020/rosetta-bitcoin/utils"
+	"github.com/ScArFaCe2020/rosetta-euno/utils"
 
 	"golang.org/x/sync/errgroup"
 )

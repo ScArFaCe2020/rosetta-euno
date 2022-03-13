@@ -1,4 +1,4 @@
-module github.com/ScArFaCe2020/rosetta-bitcoin
+module github.com/ScArFaCe2020/rosetta-euno
 
 go 1.16
 

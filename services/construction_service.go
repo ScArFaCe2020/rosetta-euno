@@ -24,8 +24,8 @@ import (
 	"math/big"
 	"strconv"
 
-	"github.com/ScArFaCe2020/rosetta-bitcoin/bitcoin"
-	"github.com/ScArFaCe2020/rosetta-bitcoin/configuration"
+	"github.com/ScArFaCe2020/rosetta-euno/bitcoin"
+	"github.com/ScArFaCe2020/rosetta-euno/configuration"
 
 	"github.com/btcsuite/btcd/btcec"
 	"github.com/btcsuite/btcd/txscript"
