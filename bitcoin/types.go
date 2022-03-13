@@ -19,7 +19,6 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/btcsuite/btcd/chaincfg"
 	"github.com/coinbase/rosetta-sdk-go/types"
 )
 
@@ -86,30 +85,6 @@ const (
 	P2PKHScriptPubkeySize = 25               // P2PKH size
 )
 
-// CreateMainNetParams is a function to override default mainnet settings with address prefixes
-func CreateMainNetParams() *chaincfg.Params {
-	chaincfg.MainNetParams.PubKeyHashAddrID = 0x21
-	chaincfg.MainNetParams.ScriptHashAddrID = 0x11
-	chaincfg.MainNetParams.PrivateKeyID = 0x9
-	chaincfg.MainNetParams.Net = 0xe9fdc490
-	chaincfg.MainNetParams.HDPublicKeyID = [4]byte{0x02, 0x2D, 0x25, 0x33}
-	chaincfg.MainNetParams.HDPrivateKeyID = [4]byte{0x02, 0x21, 0x31, 0x2B}
-	chaincfg.MainNetParams.HDCoinType = 119
-	return &chaincfg.MainNetParams
-}
-
-// CreateTestNet3Params is a function to override default testnet settings with address prefixes
-func CreateTestNet3Params() *chaincfg.Params {
-	chaincfg.TestNet3Params.PubKeyHashAddrID = 0x8B
-	chaincfg.TestNet3Params.ScriptHashAddrID = 0x13
-	chaincfg.TestNet3Params.PrivateKeyID = 0xEF
-	chaincfg.TestNet3Params.Net = 0xba657645
-	chaincfg.TestNet3Params.HDPublicKeyID = [4]byte{0x3a, 0x80, 0x61, 0xa0}
-	chaincfg.TestNet3Params.HDPrivateKeyID = [4]byte{0x3a, 0x80, 0x58, 0x37}
-	chaincfg.TestNet3Params.HDCoinType = 1
-	return &chaincfg.TestNet3Params
-}
-
 var (
 	// MainnetGenesisBlockIdentifier is the genesis block for mainnet.
 	MainnetGenesisBlockIdentifier = &types.BlockIdentifier{
@@ -117,7 +92,7 @@ var (
 	}
 
 	// MainnetParams are the params for mainnet.
-	MainnetParams = CreateMainNetParams()
+	MainnetParams = &EunoMainnetParams
 
 	// MainnetCurrency is the *types.Currency for mainnet.
 	MainnetCurrency = &types.Currency{
@@ -131,7 +106,7 @@ var (
 	}
 
 	// TestnetParams are the params for testnet.
-	TestnetParams = CreateTestNet3Params()
+	TestnetParams = &EunoTestnetParams
 
 	// TestnetCurrency is the *types.Currency for testnet.
 	TestnetCurrency = &types.Currency{

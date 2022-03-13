@@ -1,0 +1,224 @@
+package bitcoin
+
+import (
+	"math/big"
+	"time"
+
+	"github.com/btcsuite/btcd/chaincfg"
+	"github.com/btcsuite/btcd/chaincfg/chainhash"
+	"github.com/btcsuite/btcd/wire"
+)
+
+func init() {
+	if err := chaincfg.Register(&EunoMainnetParams); err != nil {
+		panic(err)
+	}
+	if err := chaincfg.Register(&EunoTestnetParams); err != nil {
+		panic(err)
+	}
+	if err := chaincfg.Register(&EunoRegressionNetParams); err != nil {
+		panic(err)
+	}
+}
+
+var (
+	bigOne       = big.NewInt(1)
+	mainPowLimit = new(big.Int).Sub(new(big.Int).Lsh(bigOne, 224), bigOne)
+)
+
+const (
+	// DeploymentTestDummy ...
+	DeploymentTestDummy = iota
+
+	// DeploymentCSV ...
+	DeploymentCSV
+
+	// DeploymentSegwit ...
+	DeploymentSegwit
+
+	// DefinedDeployments ...
+	DefinedDeployments
+)
+
+// genesisCoinbaseTx is the coinbase transaction for the genesis blocks for
+// the main network, regression test network, and test network (version 3).
+var genesisCoinbaseTx = wire.MsgTx{
+	Version: 1,
+	TxIn: []*wire.TxIn{
+		{
+			PreviousOutPoint: wire.OutPoint{
+				Hash:  chainhash.Hash{},
+				Index: 0xffffffff,
+			},
+			SignatureScript: []byte{
+				0x57, 0x65, 0x6c, 0x63, 0x6f, 0x6d, 0x65, 0x20,
+				0x74, 0x6f, 0x20, 0x45, 0x55, 0x4e, 0x4f, 0xe2,
+				0x80, 0xa2, 0x20, 0x32, 0x2e, 0x30,
+			},
+			Sequence: 0xffffffff,
+		},
+	},
+	TxOut: []*wire.TxOut{
+		{
+			Value: 0x12a05f200,
+			PkScript: []byte{ // ToDo
+				0x41, 0x04, 0x67, 0x8a, 0xfd, 0xb0, 0xfe, 0x55, /* |A.g....U| */
+				0x48, 0x27, 0x19, 0x67, 0xf1, 0xa6, 0x71, 0x30, /* |H'.g..q0| */
+				0xb7, 0x10, 0x5c, 0xd6, 0xa8, 0x28, 0xe0, 0x39, /* |..\..(.9| */
+				0x09, 0xa6, 0x79, 0x62, 0xe0, 0xea, 0x1f, 0x61, /* |..yb...a| */
+				0xde, 0xb6, 0x49, 0xf6, 0xbc, 0x3f, 0x4c, 0xef, /* |..I..?L.| */
+				0x38, 0xc4, 0xf3, 0x55, 0x04, 0xe5, 0x1e, 0xc1, /* |8..U....| */
+				0x12, 0xde, 0x5c, 0x38, 0x4d, 0xf7, 0xba, 0x0b, /* |..\8M...| */
+				0x8d, 0x57, 0x8a, 0x4c, 0x70, 0x2b, 0x6b, 0xf1, /* |.W.Lp+k.| */
+				0x1d, 0x5f, 0xac, /* |._.| */
+			},
+		},
+	},
+	LockTime: 0,
+}
+
+var MainnetGenesisMerkleRoot = chainhash.Hash([chainhash.HashSize]byte{
+	0x36, 0xe0, 0x87, 0x38, 0xec, 0x3d,
+	0x5b, 0xc5, 0x68, 0x3c, 0x3c, 0x9a,
+	0xe6, 0x7a, 0x8e, 0x84, 0x3d, 0xc9,
+	0x34, 0x88, 0x4b, 0x92, 0x5c, 0x76,
+	0x36, 0x45, 0x67, 0xd3, 0x59, 0xd6,
+	0xe7, 0xed,
+})
+
+var TestnetGenesisMerkleRoot = chainhash.Hash([chainhash.HashSize]byte{
+	0x7c, 0x6c, 0x29, 0x62, 0xe9, 0xbb,
+	0x6d, 0xf1, 0xc2, 0xfd, 0x08, 0xc4,
+	0x45, 0x96, 0xd5, 0xe4, 0xf4, 0x0a,
+	0x78, 0x86, 0x20, 0x13, 0x26, 0x96,
+	0x1e, 0xda, 0x55, 0xe5, 0x74, 0xb5,
+	0xc9, 0xca,
+})
+
+var RegTestnetGenesisMerkleRoot = chainhash.Hash([chainhash.HashSize]byte{
+	0x7c, 0x6c, 0x29, 0x62, 0xe9, 0xbb,
+	0x6d, 0xf1, 0xc2, 0xfd, 0x08, 0xc4,
+	0x45, 0x96, 0xd5, 0xe4, 0xf4, 0x0a,
+	0x78, 0x86, 0x20, 0x13, 0x26, 0x96,
+	0x1e, 0xda, 0x55, 0xe5, 0x74, 0xb5,
+	0xc9, 0xca,
+})
+
+var MainnetGenesisBlock = wire.MsgBlock{
+	Header: wire.BlockHeader{
+		Version:    1,
+		PrevBlock:  chainhash.Hash{},
+		MerkleRoot: MainnetGenesisMerkleRoot,
+		Timestamp:  time.Unix(1602054000, 0),
+		Bits:       0x1e0ffff0,
+		Nonce:      1171364,
+	},
+	Transactions: []*wire.MsgTx{&genesisCoinbaseTx},
+}
+
+var TestnetGenesisBlock = wire.MsgBlock{
+	Header: wire.BlockHeader{
+		Version:    1,
+		PrevBlock:  chainhash.Hash{},
+		MerkleRoot: TestnetGenesisMerkleRoot,
+		Timestamp:  time.Unix(1600674444, 0),
+		Bits:       0x1e0ffff0,
+		Nonce:      28524782,
+	},
+	Transactions: []*wire.MsgTx{&genesisCoinbaseTx},
+}
+
+var RegTestnetGenesisBlock = wire.MsgBlock{
+	Header: wire.BlockHeader{
+		Version:    1,
+		PrevBlock:  chainhash.Hash{},
+		MerkleRoot: RegTestnetGenesisMerkleRoot,
+		Timestamp:  time.Unix(1600674444, 0),
+		Bits:       0x1e0ffff0,
+		Nonce:      28524782,
+	},
+	Transactions: []*wire.MsgTx{&genesisCoinbaseTx},
+}
+
+var MainnetGenesisHash = chainhash.Hash([chainhash.HashSize]byte{ // Make go vet happy.
+	0xdd, 0x56, 0x8d, 0x90, 0x67, 0xda, 0x1b, 0x78,
+	0x0f, 0x9c, 0x2c, 0x19, 0x38, 0xc6, 0xc0, 0x45,
+	0x4a, 0x88, 0x85, 0x4d, 0x2e, 0x17, 0xf0, 0x29,
+	0xab, 0xb1, 0x34, 0xa2, 0x9e, 0x00, 0x00, 0x00,
+})
+
+var TestnetGenesisHash = chainhash.Hash([chainhash.HashSize]byte{ // Make go vet happy.
+	0x9f, 0x9a, 0x15, 0x19, 0x76, 0x75, 0x4e, 0xec,
+	0xa4, 0xe3, 0x67, 0xae, 0xce, 0x82, 0x9d, 0xce,
+	0x3e, 0xe2, 0xae, 0xcc, 0x4e, 0x0b, 0xfe, 0xf1,
+	0x5b, 0xd9, 0xce, 0xbb, 0x55, 0x00, 0x00, 0x00,
+})
+
+var RegTestnetGenesisHash = chainhash.Hash([chainhash.HashSize]byte{ // Make go vet happy.
+	0x9f, 0x9a, 0x15, 0x19, 0x76, 0x75, 0x4e, 0xec,
+	0xa4, 0xe3, 0x67, 0xae, 0xce, 0x82, 0x9d, 0xce,
+	0x3e, 0xe2, 0xae, 0xcc, 0x4e, 0x0b, 0xfe, 0xf1,
+	0x5b, 0xd9, 0xce, 0xbb, 0x55, 0x00, 0x00, 0x00,
+})
+
+func newHashFromStr(hexStr string) *chainhash.Hash {
+	hash, err := chainhash.NewHashFromStr(hexStr)
+	if err != nil {
+		panic(err)
+	}
+	return hash
+}
+
+// MainNetParams returns the chain configuration for mainnet
+var EunoMainnetParams = chaincfg.Params{
+	Name:        "main",
+	Net:         0xe9fdc490,
+	DefaultPort: "46462",
+
+	GenesisBlock: &MainnetGenesisBlock,
+	GenesisHash:  &MainnetGenesisHash,
+
+	PubKeyHashAddrID:        0x21,
+	ScriptHashAddrID:        17,
+	PrivateKeyID:            9,
+	WitnessPubKeyHashAddrID: 0x00,
+	WitnessScriptHashAddrID: 0x00,
+
+	HDPrivateKeyID: [4]byte{0x02, 0x21, 0x31, 0x2B},
+	HDPublicKeyID:  [4]byte{0x02, 0x2D, 0x25, 0x33},
+
+	HDCoinType: 119,
+}
+
+// TestnetParams returns the chain configuration for testnet
+var EunoTestnetParams = chaincfg.Params{
+	Name: "test",
+
+	Net:         0xba657645,
+	DefaultPort: "46464",
+
+	GenesisBlock: &TestnetGenesisBlock,
+	GenesisHash:  &TestnetGenesisHash,
+
+	PubKeyHashAddrID:        139,
+	ScriptHashAddrID:        19,
+	PrivateKeyID:            239,
+	WitnessPubKeyHashAddrID: 0x00, // unimplement
+	WitnessScriptHashAddrID: 0x00, // unimplement
+
+	HDPrivateKeyID: [4]byte{0x3a, 0x80, 0x58, 0x37},
+	HDPublicKeyID:  [4]byte{0x3a, 0x80, 0x61, 0xa0},
+
+	HDCoinType: 1,
+}
+
+// RegressionNetParams returns the chain configuration for regression net
+var EunoRegressionNetParams = chaincfg.Params{
+	Name: "regtest",
+
+	Net:         0xac7ecfa1,
+	DefaultPort: "46466",
+
+	GenesisBlock: &RegTestnetGenesisBlock,
+	GenesisHash:  &RegTestnetGenesisHash,
+}
