@@ -486,6 +486,12 @@ func skipTransactionOperations(blockNumber int64, blockHash string, transactionH
 		return true
 	}
 
+	//testnet
+	if blockNumber == 0 && blockHash == "00000055bbced95bf1fe0b4eccaee23ece9d82ceae67e3a4ec4e757619159a9f" &&
+		transactionHash == "cac9b574e555da1e9626132086780af4e4d59645c408fdc2f16dbbe962296c7c" {
+		return true
+	}
+
 	return false
 }
 
