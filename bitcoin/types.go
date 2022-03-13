@@ -92,6 +92,9 @@ func CreateMainNetParams() *chaincfg.Params {
 	chaincfg.MainNetParams.ScriptHashAddrID = 0x11
 	chaincfg.MainNetParams.PrivateKeyID = 0x9
 	chaincfg.MainNetParams.Net = 0xe9fdc490
+	chaincfg.MainNetParams.HDPublicKeyID = [4]byte{0x02, 0x2D, 0x25, 0x33}
+	chaincfg.MainNetParams.HDPrivateKeyID = [4]byte{0x02, 0x21, 0x31, 0x2B}
+	chaincfg.MainNetParams.HDCoinType = 119
 	return &chaincfg.MainNetParams
 }
 
@@ -101,6 +104,9 @@ func CreateTestNet3Params() *chaincfg.Params {
 	chaincfg.TestNet3Params.ScriptHashAddrID = 0x13
 	chaincfg.TestNet3Params.PrivateKeyID = 0xEF
 	chaincfg.TestNet3Params.Net = 0xba657645
+	chaincfg.TestNet3Params.HDPublicKeyID = [4]byte{0x3a, 0x80, 0x61, 0xa0}
+	chaincfg.TestNet3Params.HDPrivateKeyID = [4]byte{0x3a, 0x80, 0x58, 0x37}
+	chaincfg.TestNet3Params.HDCoinType = 119
 	return &chaincfg.TestNet3Params
 }
 
