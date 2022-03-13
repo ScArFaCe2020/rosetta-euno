@@ -86,11 +86,9 @@ func startOnlineDependencies(
 		cfg.Currency,
 	)
 
-	//TODO: need to enable this again.. for testing disabled as local wallet is running....
-
-	// g.Go(func() error {
-	// 	return bitcoin.StartBitcoind(ctx, cfg.ConfigPath, g)
-	// })
+	g.Go(func() error {
+		return bitcoin.StartBitcoind(ctx, cfg.ConfigPath, g)
+	})
 
 	i, err := indexer.Initialize(
 		ctx,
@@ -106,9 +104,11 @@ func startOnlineDependencies(
 		return i.Sync(ctx)
 	})
 
-	g.Go(func() error {
-		return i.Prune(ctx)
-	})
+	//eunod doesn't have prune function
+
+	// g.Go(func() error {
+	// 	return i.Prune(ctx)
+	// })
 
 	return client, i, nil
 }

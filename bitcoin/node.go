@@ -89,13 +89,13 @@ func StartBitcoind(ctx context.Context, configPath string, g *errgroup.Group) er
 	})
 
 	if err := cmd.Start(); err != nil {
-		return fmt.Errorf("%w: unable to start bitcoind", err)
+		return fmt.Errorf("%w: unable to start eunod", err)
 	}
 
 	g.Go(func() error {
 		<-ctx.Done()
 
-		logger.Warnw("sending interrupt to bitcoind")
+		logger.Warnw("sending interrupt to eunod")
 		return cmd.Process.Signal(os.Interrupt)
 	})
 
