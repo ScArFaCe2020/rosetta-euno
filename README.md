@@ -132,7 +132,7 @@ and run one of the following commands:
 * `rosetta-cli check:data --configuration-file rosetta-cli-conf/mainnet/config.json` - This command validates that the Data API information in the `mainnet` network is correct. It also ensures that the implementation does not miss any balance-changing operations.
 
 ## Issues
-Interested in helping fix issues in this repository? You can find to-dos in the [Issues](https://github.com/coinbase/rosetta-bitcoin/issues) section with the `help wanted` tag. Be sure to reach out on our [community](https://community.rosetta-api.org) before you tackle anything on this list.
+Interested in helping fix issues in this repository? You can find to-dos in the [Issues](https://github.com/ScArFaCe2020/rosetta-euno/issues) section with the `help wanted` tag. Be sure to reach out on our [community](https://community.rosetta-api.org) before you tackle anything on this list.
 
 
 ## Development

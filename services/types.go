@@ -42,7 +42,7 @@ const (
 	inlineFetchLimit = 100
 
 	// MiddlewareVersion is the version
-	// of rosetta-bitcoin. We set this as a
+	// of rosetta-euno. We set this as a
 	// variable instead of a constant because
 	// we typically need the pointer of this
 	// value.

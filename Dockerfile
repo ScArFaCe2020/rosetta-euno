@@ -25,7 +25,6 @@ ENV TZ Etc/UTC
 RUN apt-get update && apt-get install -y make gcc g++ autoconf autotools-dev bsdmainutils build-essential git libboost-all-dev \
   libcurl4-openssl-dev libdb++-dev libevent-dev libssl-dev libtool pkg-config python python3-pip libzmq3-dev wget
 
-# VERSION: Bitcoin Core 0.20.1
 RUN wget https://github.com/Euno/eunowallet/releases/download/v2.0.2/euno-2.0.2-x86_64-linux-gnu.tar.gz \
   && tar zxvf euno-2.0.2-x86_64-linux-gnu.tar.gz
 

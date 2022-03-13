@@ -81,12 +81,6 @@ func (s *AccountAPIService) AccountCoins(
 		return nil, wrapErr(ErrUnavailableOffline, nil)
 	}
 
-	// TODO: filter coins by request currencies
-
-	// TODO: support include_mempool query
-	// https://github.com/coinbase/rosetta-bitcoin/issues/36#issuecomment-724992022
-	// Once mempoolcoins are supported also change the bool service/types.go:MempoolCoins to true
-
 	coins, block, err := s.i.GetCoins(ctx, request.AccountIdentifier)
 	if err != nil {
 		return nil, wrapErr(ErrUnableToGetCoins, err)

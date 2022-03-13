@@ -36,7 +36,7 @@ import (
 
 const (
 	// genesisBlockIndex is the height of the block we consider to be the
-	// genesis block of the bitcoin blockchain for polling
+	// genesis block of the euno blockchain for polling
 	genesisBlockIndex = 0
 
 	// requestID is the JSON-RPC request ID we use for making requests.
@@ -51,31 +51,15 @@ const (
 type requestMethod string
 
 const (
-	// https://bitcoin.org/en/developer-reference#getblock
-	requestMethodGetBlock requestMethod = "getblock"
-
-	// https://bitcoin.org/en/developer-reference#getblockhash
-	requestMethodGetBlockHash requestMethod = "getblockhash"
-
-	// https://bitcoin.org/en/developer-reference#getblockchaininfo
-	requestMethodGetBlockchainInfo requestMethod = "getblockchaininfo"
-
-	// https://developer.bitcoin.org/reference/rpc/getpeerinfo.html
-	requestMethodGetPeerInfo requestMethod = "getpeerinfo"
-
-	// https://developer.bitcoin.org/reference/rpc/pruneblockchain.html
-	requestMethodPruneBlockchain requestMethod = "pruneblockchain"
-
-	// https://developer.bitcoin.org/reference/rpc/sendrawtransaction.html
+	requestMethodGetBlock           requestMethod = "getblock"
+	requestMethodGetBlockHash       requestMethod = "getblockhash"
+	requestMethodGetBlockchainInfo  requestMethod = "getblockchaininfo"
+	requestMethodGetPeerInfo        requestMethod = "getpeerinfo"
+	requestMethodPruneBlockchain    requestMethod = "pruneblockchain"
 	requestMethodSendRawTransaction requestMethod = "sendrawtransaction"
-
-	// https://developer.bitcoin.org/reference/rpc/estimatesmartfee.html
-	requestMethodEstimateSmartFee requestMethod = "estimatefee"
-
-	// https://developer.bitcoin.org/reference/rpc/getrawmempool.html
-	requestMethodRawMempool requestMethod = "getrawmempool"
-
-	requestMethodGetRawTransaction requestMethod = "getrawtransaction"
+	requestMethodEstimateSmartFee   requestMethod = "estimatefee"
+	requestMethodRawMempool         requestMethod = "getrawmempool"
+	requestMethodGetRawTransaction  requestMethod = "getrawtransaction"
 
 	// blockNotFoundErrCode is the RPC error code when a block cannot be found
 	blockNotFoundErrCode = -5
@@ -86,11 +70,11 @@ const (
 	dialTimeout    = 5 * time.Second
 
 	// timeMultiplier is used to multiply the time
-	// returned in Bitcoin blocks to be milliseconds.
+	// returned in Euno blocks to be milliseconds.
 	timeMultiplier = 1000
 
-	// rpc credentials are fixed in rosetta-bitcoin
-	// because we never expose access to the raw bitcoind
+	// rpc credentials are fixed in rosetta-euno
+	// because we never expose access to the raw eunod
 	// endpoints (that could be used perform an attack, like
 	// changing our peers).
 	rpcUsername = "rosetta"
