@@ -99,8 +99,8 @@ func CreateMainNetParams() *chaincfg.Params {
 func CreateTestNet3Params() *chaincfg.Params {
 	chaincfg.TestNet3Params.PubKeyHashAddrID = 0x8B
 	chaincfg.TestNet3Params.ScriptHashAddrID = 0x13
-	chaincfg.MainNetParams.PrivateKeyID = 0xEF
-	chaincfg.MainNetParams.Net = 0xba657645
+	chaincfg.TestNet3Params.PrivateKeyID = 0xEF
+	chaincfg.TestNet3Params.Net = 0xba657645
 	return &chaincfg.TestNet3Params
 }
 
