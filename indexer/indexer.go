@@ -338,16 +338,16 @@ func (i *Indexer) Prune(ctx context.Context) error {
 				continue
 			}
 
-			logger.Infow("attempting to prune bitcoind", "prune height", pruneHeight)
+			logger.Infow("attempting to prune eunod", "prune height", pruneHeight)
 			prunedHeight, err := i.client.PruneBlockchain(ctx, pruneHeight)
 			if err != nil {
 				logger.Warnw(
-					"unable to prune bitcoind",
+					"unable to prune eunod",
 					"prune height", pruneHeight,
 					"error", err,
 				)
 			} else {
-				logger.Infow("pruned bitcoind", "prune height", prunedHeight)
+				logger.Infow("pruned eunod", "prune height", prunedHeight)
 			}
 		}
 	}

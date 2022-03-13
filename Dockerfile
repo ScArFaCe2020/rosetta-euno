@@ -12,22 +12,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Build bitcoind
-FROM ubuntu:20.04 as bitcoind-builder
+# Build eunod
+FROM ubuntu:20.04 as eunod-builder
 
 RUN mkdir -p /app \
   && chown -R nobody:nogroup /app
 WORKDIR /app
 
-# Source: https://github.com/bitcoin/bitcoin/blob/master/doc/build-unix.md#ubuntu--debian
 ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ Etc/UTC
 RUN apt-get update && apt-get install -y make gcc g++ autoconf autotools-dev bsdmainutils build-essential git libboost-all-dev \
   libcurl4-openssl-dev libdb++-dev libevent-dev libssl-dev libtool pkg-config python python3-pip libzmq3-dev wget
 
 # VERSION: Bitcoin Core 0.20.1
-RUN git clone https://github.com/bitcoin/bitcoin \
-  && cd bitcoin \
+RUN wget https://github.com/Euno/eunowallet/releases/download/v2.0.2/euno-2.0.2-x86_64-linux-gnu.tar.gz \
+  && tar zxvf euno-2.0.2-x86_64-linux-gnu.tar.gz \
   && git checkout 7ff64311bee570874c4f0dfa18f518552188df08
 
 RUN cd bitcoin \
@@ -35,8 +34,8 @@ RUN cd bitcoin \
   && ./configure --disable-tests --without-miniupnpc --without-gui --with-incompatible-bdb --disable-hardening --disable-zmq --disable-bench --disable-wallet \
   && make
 
-RUN mv bitcoin/src/bitcoind /app/bitcoind \
-  && rm -rf bitcoin
+RUN mv euno-2.0.2/bin/eunod /app/eunod \
+  && rm -rf euno-2.0.2*
 
 # Build Rosetta Server Components
 FROM ubuntu:20.04 as rosetta-builder
@@ -65,7 +64,7 @@ COPY . src
 RUN cd src \
   && go build \
   && cd .. \
-  && mv src/rosetta-bitcoin /app/rosetta-bitcoin \
+  && mv src/rosetta-euno /app/rosetta-euno \
   && mv src/assets/* /app \
   && rm -rf src 
 
@@ -83,13 +82,10 @@ RUN mkdir -p /app \
 
 WORKDIR /app
 
-# Copy binary from bitcoind-builder
-COPY --from=bitcoind-builder /app/bitcoind /app/bitcoind
+COPY --from=eunod-builder /app/eunod /app/eunod
 
-# Copy binary from rosetta-builder
 COPY --from=rosetta-builder /app/* /app/
 
-# Set permissions for everything added to /app
 RUN chmod -R 755 /app/*
 
-CMD ["/app/rosetta-bitcoin"]
+CMD ["/app/rosetta-euno"]

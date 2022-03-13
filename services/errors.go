@@ -57,19 +57,19 @@ var (
 		Message: "Endpoint unavailable offline",
 	}
 
-	// ErrNotReady is returned when bitcoind is not
+	// ErrNotReady is returned when eunod is not
 	// yet ready to serve queries.
 	ErrNotReady = &types.Error{
 		Code:      2, //nolint
-		Message:   "Bitcoind is not ready",
+		Message:   "Eunod is not ready",
 		Retriable: true,
 	}
 
-	// ErrBitcoind is returned when bitcoind
+	// ErrEunod is returned when eunod
 	// errors on a request.
 	ErrBitcoind = &types.Error{
 		Code:    3, //nolint
-		Message: "Bitcoind error",
+		Message: "Eunod error",
 	}
 
 	// ErrBlockNotFound is returned when a block

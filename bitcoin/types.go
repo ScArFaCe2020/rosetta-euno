@@ -85,14 +85,30 @@ const (
 	P2PKHScriptPubkeySize = 25               // P2PKH size
 )
 
+// CreateMainNetParams is a function to override default mainnet settings with address prefixes
+func CreateMainNetParams() *chaincfg.Params {
+	chaincfg.MainNetParams.PubKeyHashAddrID = 0x21
+	chaincfg.MainNetParams.ScriptHashAddrID = 0x11
+	chaincfg.MainNetParams.Bech32HRPSegwit = "euno"
+	return &chaincfg.MainNetParams
+}
+
+// CreateTestNet3Params is a function to override default testnet settings with address prefixes
+func CreateTestNet3Params() *chaincfg.Params {
+	chaincfg.TestNet3Params.PubKeyHashAddrID = 0x8b
+	chaincfg.TestNet3Params.ScriptHashAddrID = 0x13
+	chaincfg.TestNet3Params.Bech32HRPSegwit = "teuno"
+	return &chaincfg.TestNet3Params
+}
+
 var (
 	// MainnetGenesisBlockIdentifier is the genesis block for mainnet.
 	MainnetGenesisBlockIdentifier = &types.BlockIdentifier{
-		Hash: "000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f",
+		Hash: "0000009ea234b1ab29f0172e4d85884a45c0c638192c9c0f781bda67908d56dd",
 	}
 
 	// MainnetParams are the params for mainnet.
-	MainnetParams = &chaincfg.MainNetParams
+	MainnetParams = CreateMainNetParams()
 
 	// MainnetCurrency is the *types.Currency for mainnet.
 	MainnetCurrency = &types.Currency{
@@ -102,11 +118,11 @@ var (
 
 	// TestnetGenesisBlockIdentifier is the genesis block for testnet.
 	TestnetGenesisBlockIdentifier = &types.BlockIdentifier{
-		Hash: "000000000933ea01ad0ee984209779baaec3ced90fa3f408719526f8d77f4943",
+		Hash: "00000055bbced95bf1fe0b4eccaee23ece9d82ceae67e3a4ec4e757619159a9f",
 	}
 
 	// TestnetParams are the params for testnet.
-	TestnetParams = &chaincfg.TestNet3Params
+	TestnetParams = CreateTestNet3Params()
 
 	// TestnetCurrency is the *types.Currency for testnet.
 	TestnetCurrency = &types.Currency{
@@ -529,4 +545,3 @@ func TransactionHash(identifier string) string {
 	vals := strings.Split(identifier, ":")
 	return vals[0]
 }
-

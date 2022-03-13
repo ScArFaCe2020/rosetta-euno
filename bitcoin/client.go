@@ -45,12 +45,6 @@ const (
 
 	// jSONRPCVersion is the JSON-RPC version we use for making requests
 	jSONRPCVersion = "1.0"
-
-	// blockVerbosity represents the verbose level used when fetching blocks
-	// * 0 returns the hex representation
-	// * 1 returns the JSON representation
-	// * 2 returns the JSON representation with included Transaction data
-	// blockVerbosity = 2
 )
 
 type requestMethod string
@@ -391,11 +385,13 @@ func (b *Client) getBlock(
 	}
 
 	for i := range response.Result.Tx {
-		r, err := b.GetRawTransaction(ctx, response.Result.Tx[i])
-		if err != nil {
-			return nil, fmt.Errorf("%w: error fetching block by hash %s", err, hash)
+		if !skipTransactionOperations(response.Result.Height, response.Result.Hash, response.Result.Tx[i]) {
+			r, err := b.GetRawTransaction(ctx, response.Result.Tx[i])
+			if err != nil {
+				return nil, fmt.Errorf("%w: error fetching block by hash %s", err, hash)
+			}
+			response.Result.Txs = append(response.Result.Txs, r)
 		}
-		response.Result.Txs = append(response.Result.Txs, r)
 	}
 
 	return response.Result, nil
