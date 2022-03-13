@@ -13,7 +13,7 @@
   "compression_disabled": true,
   "max_reorg_depth": 50,
   "construction": {
-    "constructor_dsl_file": "bitcoin.ros",
+    "constructor_dsl_file": "euno.ros",
     "end_conditions": {
       "create_account": 10,
       "transfer": 10
